@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  web1:
+    image: nginx
+#    ports:
+#    - 8080:80
+    volumes:
+    - ./web1:/usr/share/nginx/html
+
+  web2:
+    image: nginx
+#    ports:
+#    - 8081:80
+    volumes:
+    - ./web2:/usr/share/nginx/html
+
+  lb:
+    build: .
+    ports:
+    - 80:80
+    volumes:
+    - ./LB:/etc/apache2/sites-enabled/
+    links:
+    - web1
+    - web2
